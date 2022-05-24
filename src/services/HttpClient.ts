@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const httpClient = axios.create({
-    baseURL: "https://localhost:7142/api/v1",
+    baseURL: "https://recipeapp-dist.azurewebsites.net/api/v1",
     headers: {
         "Content-type": "application/json",
     }

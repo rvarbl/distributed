@@ -5,14 +5,13 @@ export const IdentityMain = () => {
   const appState = useContext(AppContext);
   const [culture, setCulture] = useState(appState.culture);
   const cultureOptions = [
-    { value: "et-EE", label: 'English' },
-    { value: "en-GB", label: 'Eesti' }
+    { value: "et-EE", label: 'Eesti' },
+    { value: "en-GB", label: 'English' }
   ]
   const changeCulture = (event: ChangeEvent<HTMLSelectElement>) => {
     setCulture(event.target.value);
-    //appState.setCulture(culture ?? "");
+    appState.culture = event.target.value;
     console.log(appState.culture);
-
   };
 
   return (

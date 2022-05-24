@@ -1,12 +1,9 @@
 import React, { FormEvent, useContext, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import App from '../../App';
 import { IAppUser } from '../../domain/identity/IAppUser';
 import { AuthenticationService } from '../../services/identity/AuthenticationService';
 import { IErrorResponse } from '../../services/response/IErrorResponse';
-import { IJWTResponse } from '../../services/response/IJwtResponse';
 import { AppContext, initialState } from '../../state/AppContext';
-import Home from '../Home';
 
 
 export const Login = () => {
@@ -16,6 +13,7 @@ export const Login = () => {
   const authService = new AuthenticationService();
   
   let appState = useContext(AppContext);
+  let navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,7 +26,7 @@ export const Login = () => {
 
       localStorage.setItem("user", JSON.stringify(user));
       //window.location.reload();
-      return (<Navigate to="/" />)
+      navigate("/");
     }
     else {
       let errorResponse = response.errorResponse as IErrorResponse

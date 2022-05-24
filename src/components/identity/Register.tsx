@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { IAppUser } from '../../domain/identity/IAppUser';
 import { IRegister } from '../../domain/identity/IRegister';
 import { AuthenticationService } from '../../services/identity/AuthenticationService';
@@ -10,7 +10,7 @@ export const Register = () => {
   let appState = useContext(AppContext);
   const [errorMessages, setErrorMessages] = useState<string[] | undefined>(undefined);
   const authService = new AuthenticationService();
-
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ export const Register = () => {
         let user: IAppUser = response.data as IAppUser;
         appState.setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
-        return (<Navigate to="/" />)
+        navigate("/");
       }
       else {
         let errorResponse = response.errorResponse as IErrorResponse

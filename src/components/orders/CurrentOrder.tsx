@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { IOrder } from '../../domain/orders/IOrder';
 import { IOrderRow } from '../../domain/orders/IOrderRow';
 import { I_Ingredient } from '../../domain/recipes/I_Ingredient';
@@ -11,13 +11,7 @@ import { ICartState } from '../../state/cart/ICartState';
 export const CurrentOrder = () => {
   const cartState = useContext(CartContext);
   const orderService = new OrderService();
-
-  let total = 0;
-
-  useEffect(() => {
-    console.log("cartstae change", cartState);
-  }, [cartState]);
-
+  let navigate = useNavigate();
 
   const cartContains = (ingredient: I_Ingredient | undefined): boolean => {
     if (ingredient === undefined || cartState.cart === undefined) { return false; }
@@ -91,7 +85,7 @@ export const CurrentOrder = () => {
       orderService.post(order);
 
       cartState.setCart([]);
-      return (<Navigate to="/orders_all" />);
+      navigate("/orders_all")
     }
   };
   const getTotalPrice = (): number => {
